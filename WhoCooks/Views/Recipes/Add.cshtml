@@ -1,0 +1,76 @@
+﻿@model  AddRecipeFormModel
+
+@{
+    ViewBag.Title = "Add Recipe";
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Enter your title">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author"></label>
+                <input asp-for="Author" class="form-control" placeholder="Enter your name">
+                <span asp-validation-for="Author" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Difficulty"></label>
+                <textarea asp-for="Difficulty" rows="4" class="form-control" placeholder="How hard it is to cook from 1 to 5?"></textarea>
+                <span asp-validation-for="Difficulty" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servings"></label>
+                <textarea asp-for="Servings" rows="4" class="form-control" placeholder="How many people you can feed with this recipe?"></textarea>
+                <span asp-validation-for="Servings" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CookTime"></label>
+                <input asp-for="CookTime" class="form-control" placeholder="How long does it take to cook?">
+                <span asp-validation-for="CookTime" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredients"></label>
+                <input asp-for="Ingredients" class="form-control" placeholder="What are the ingredients?">
+                <span asp-validation-for="Ingredients" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Directions"></label>
+                <input asp-for="Directions" class="form-control" placeholder="How did you cook it?">
+                <span asp-validation-for="Directions" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CookingMethodId"></label>
+                <select asp-for="CookingMethodId" class="form-control">
+                    @foreach (var methods in Model.Methods)
+                    {
+                        <option value="@methods.Id">@methods.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary mt-3" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

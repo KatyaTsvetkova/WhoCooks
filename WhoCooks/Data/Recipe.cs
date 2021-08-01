@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace WhoCooks.Data
 {
     using System;
@@ -18,13 +20,14 @@ namespace WhoCooks.Data
         public CookingMethod CookingMethod { get; init; }
         
         [Required]
-        public string Difficulty { get; init; }
+        public int Difficulty { get; init; }
         [Required]
         public  int Servings { get; init; }
         [Required]
         public double CookTime { get; init; }
+
         [Required]
-        public  string Ingredients { get; init; }
+        public string Ingredients { get; init; } 
 
         [Required]
         public DateTime TimeStamp { get; set; }

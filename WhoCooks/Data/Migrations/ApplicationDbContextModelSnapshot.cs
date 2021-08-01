@@ -268,9 +268,8 @@ namespace WhoCooks.Data.Migrations
                     b.Property<int>("CookingMethodId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Difficulty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
 
                     b.Property<string>("Directions")
                         .IsRequired()

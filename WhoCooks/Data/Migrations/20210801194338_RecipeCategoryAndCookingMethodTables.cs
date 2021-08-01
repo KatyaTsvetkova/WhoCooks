@@ -42,7 +42,7 @@ namespace WhoCooks.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CookingMethodId = table.Column<int>(type: "int", nullable: false),
-                    Difficulty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Difficulty = table.Column<int>(type: "int", nullable: false),
                     Servings = table.Column<int>(type: "int", nullable: false),
                     CookTime = table.Column<double>(type: "float", nullable: false),
                     Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: false),

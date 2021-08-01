@@ -10,7 +10,7 @@ using WhoCooks.Data;
 namespace WhoCooks.Data.Migrations
 {
     [DbContext(typeof(WhoCooksDbContext))]
-    [Migration("20210801165224_RecipeCategoryAndCookingMethodTables")]
+    [Migration("20210801194338_RecipeCategoryAndCookingMethodTables")]
     partial class RecipeCategoryAndCookingMethodTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,9 +270,8 @@ namespace WhoCooks.Data.Migrations
                     b.Property<int>("CookingMethodId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Difficulty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
 
                     b.Property<string>("Directions")
                         .IsRequired()
