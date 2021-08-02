@@ -14,10 +14,6 @@ namespace WhoCooks.Data
         public  string Title { get; init; }
 
         public string Author { get; init; }
-        [Required]
-        public int CookingMethodId { get; init; }
-       
-        public CookingMethod CookingMethod { get; init; }
         
         [Required]
         public int Difficulty { get; init; }

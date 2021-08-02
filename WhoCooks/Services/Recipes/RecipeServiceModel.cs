@@ -10,12 +10,9 @@
 
         public string Author { get; init; }
         
-        public int CookingMethodId { get; init; }
-        public string CookingMethod{ get; init; }
-
         public int Difficulty { get; init; }
 
-       public int Servings { get; init; }
+        public int Servings { get; init; }
 
         public double CookTime { get; init; }
         

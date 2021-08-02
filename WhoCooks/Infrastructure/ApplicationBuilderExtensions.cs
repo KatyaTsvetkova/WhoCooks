@@ -29,12 +29,7 @@
                 return;
             }
 
-            if (data.CookingMethods.Any())
-            {
-                return;
-            }
-
-            data.Categories.AddRange(new[]
+          data.Categories.AddRange(new[]
             {
                 new Category { Name = "Breakfast" },
                 new Category { Name = "Brunch" },
@@ -57,23 +52,7 @@
                 new Category { Name = "Desserts" },
                 new Category { Name = "Drinks" },
             });
-            data.AddRange(new[]
-            {
-                new CookingMethod{Name = "Sauté"},
-                new CookingMethod{Name = "Baking"},
-                new CookingMethod{Name = "Frying"},
-                new CookingMethod{Name = "Roasting"},
-                new CookingMethod{Name = "Grilling"},
-                new CookingMethod{Name = "Steaming"},
-                new CookingMethod{Name = "Poaching"},
-                new CookingMethod{Name = "Simmering"},
-                new CookingMethod{Name = "Broiling"},
-                new CookingMethod{Name = "Blanching"},
-                new CookingMethod{Name = "Braising"},
-                new CookingMethod{Name = "Stewing"},
-            });
-
-            data.SaveChanges();
+           data.SaveChanges();
         }
     }
 }

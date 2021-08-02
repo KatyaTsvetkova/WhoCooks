@@ -234,21 +234,6 @@ namespace WhoCooks.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("WhoCooks.Data.CookingMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CookingMethods");
-                });
-
             modelBuilder.Entity("WhoCooks.Data.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -264,9 +249,6 @@ namespace WhoCooks.Data.Migrations
 
                     b.Property<double>("CookTime")
                         .HasColumnType("float");
-
-                    b.Property<int>("CookingMethodId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
@@ -296,8 +278,6 @@ namespace WhoCooks.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CookingMethodId");
 
                     b.ToTable("Recipes");
                 });
@@ -361,25 +341,12 @@ namespace WhoCooks.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WhoCooks.Data.CookingMethod", "CookingMethod")
-                        .WithMany("RecipeMethods")
-                        .HasForeignKey("CookingMethodId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("CookingMethod");
                 });
 
             modelBuilder.Entity("WhoCooks.Data.Category", b =>
                 {
                     b.Navigation("RecipeCategories");
-                });
-
-            modelBuilder.Entity("WhoCooks.Data.CookingMethod", b =>
-                {
-                    b.Navigation("RecipeMethods");
                 });
 #pragma warning restore 612, 618
         }

@@ -43,13 +43,7 @@
             MinimumLength = DirectionsMinLength,
             ErrorMessage = "The field Description must be a string with a minimum length of {2}.")]
         public string Directions { get; init; }
-
-        [Required]
-        [Display(Name = "Cooking Method")]
-        public int CookingMethodId { get; init; }
         
-        public IEnumerable<MethodsViewModel> Methods { get; set; }
-
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; init; }

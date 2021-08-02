@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WhoCooks.Data.Migrations
 {
-    public partial class RecipeCategoryAndCookingMethodTables : Migration
+    public partial class RecipeAndCategoryTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,19 +21,6 @@ namespace WhoCooks.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CookingMethods",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CookingMethods", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Recipes",
                 columns: table => new
                 {
@@ -41,7 +28,6 @@ namespace WhoCooks.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CookingMethodId = table.Column<int>(type: "int", nullable: false),
                     Difficulty = table.Column<int>(type: "int", nullable: false),
                     Servings = table.Column<int>(type: "int", nullable: false),
                     CookTime = table.Column<double>(type: "float", nullable: false),
@@ -60,23 +46,12 @@ namespace WhoCooks.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Recipes_CookingMethods_CookingMethodId",
-                        column: x => x.CookingMethodId,
-                        principalTable: "CookingMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recipes_CategoryId",
                 table: "Recipes",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recipes_CookingMethodId",
-                table: "Recipes",
-                column: "CookingMethodId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -86,9 +61,6 @@ namespace WhoCooks.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "CookingMethods");
         }
     }
 }

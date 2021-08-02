@@ -46,9 +46,13 @@
             var recipe = recipesQuery
                 .Skip((currentPage - 1) * recipePerPage)
                 .Take(recipePerPage)
-                .Select(c => new RecipeServiceModel
+                .Select(r => new RecipeServiceModel
                 {
-                    
+                    Title = r.Title,
+                    Difficulty=r.Difficulty,
+                    CookTime=r.CookTime,
+                    ImageUrl=r.ImageUrl,
+                    Category = r.Category.Name
                 })
                 .ToList();
 

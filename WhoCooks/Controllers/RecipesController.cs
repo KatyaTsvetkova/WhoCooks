@@ -44,7 +44,7 @@ namespace WhoCooks.Controllers
             return View(new AddRecipeFormModel()
             {
                 Categories = this.GetRecipesCategories(),
-                Methods = this.GetRecipesMethods()
+                
             });
         }
         [HttpPost]
@@ -68,7 +68,6 @@ namespace WhoCooks.Controllers
             {
                 Title= recipe.Title,
                 Author= recipe.Author,
-                CookingMethodId=recipe.CookingMethodId,
                 Difficulty=recipe.Difficulty,
                 Servings=recipe.Servings,
                 CookTime=recipe.CookTime,
@@ -96,15 +95,7 @@ namespace WhoCooks.Controllers
                 })
                 .ToList();
 
-        private IEnumerable<MethodsViewModel> GetRecipesMethods()
-            => this.data
-                .CookingMethods
-                .Select(m => new MethodsViewModel
-                {
-                    Id = m.Id,
-                    Name = m.Name
-                })
-                .ToList();
+       
     }
         
 }

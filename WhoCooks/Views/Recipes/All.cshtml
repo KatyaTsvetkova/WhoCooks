@@ -31,9 +31,8 @@
                 <select asp-for="Sorting" class="form-control">
                     <option value="0" selected>Category</option>
                     <option value="1">CreatedOn</option>
-                    <option value="2">Cooking Method</option>
-                    <option value="3">Title</option>
-                    <option value="4">Difficulty</option>
+                    <option value="2">Title</option>
+                    <option value="3">Difficulty</option>
                 </select>
             </div>
         </div>
@@ -78,15 +77,22 @@
 
 <div class="row">
     @foreach (var  recipe in Model.Recipes)
-    {
-        <div class="col-md-4">
-            <div class="card mb-3">
-                <img class="card-img-top" src="@recipe.ImageUrl" alt="@recipe.Title">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">@recipe.Ingredients  @recipe.Category @recipe.CookingMethod </h5>
-                    <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-primary">View More</a>
-                </div>
+    {  
+        <div class="card  col-md-3" style="width: 18rem;">
+            <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@recipe.Title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@recipe.Category</li>
+                <li class="list-group-item">@recipe.CookTime Min</li>
+                <li class="list-group-item"> Difficulty level @recipe.Difficulty</li>
+            </ul>
+            <div class="card-body">
+                <a  asp-controller="Recipes" asp-action="Details" asp-rout-id="@recipe.Id"  class="card-link">Full Recipe</a>
             </div>
         </div>
+         
+          
     }
 </div>
