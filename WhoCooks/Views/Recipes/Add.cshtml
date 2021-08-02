@@ -1,4 +1,4 @@
-﻿@model  AddRecipeFormModel
+@model  AddRecipeFormModel
 
 @{
     ViewBag.Title = "Add Recipe";
@@ -26,15 +26,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Servings"></label>
-                <textarea asp-for="Servings" rows="4" class="form-control" placeholder="How many people you can feed with this recipe?"></textarea>
+                <input type="number" name="tentacles" min="1" max="100">
                 <span asp-validation-for="Servings" class="small text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CookTime"></label>
-                <input asp-for="CookTime" class="form-control" placeholder="How long does it take to cook?">
-                <span asp-validation-for="CookTime" class="small text-danger"></span>
-            </div>
+            <div>
+                <label asp-for="CookTime">Select a cooking time:</label>
+                <input asp-for="CookTime" >
+            </div>            
             <div class="form-group">
                 <label asp-for="Ingredients"></label>
                 <input asp-for="Ingredients" class="form-control" placeholder="What are the ingredients?">
@@ -53,23 +52,25 @@
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
                 <select asp-for="CategoryId" class="form-control">
+                    <option selected>Choose a cooking category</option>
                     @foreach (var category in Model.Categories)
                     {
-                        <option value="@category.Id">@category.Name</option>
-                    }
+                <option value="@category.Id">@category.Name</option>}
                 </select>
                 <span asp-validation-for="CategoryId" class="small text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="CookingMethodId"></label>
-                <select asp-for="CookingMethodId" class="form-control">
-                    @foreach (var methods in Model.Methods)
+                <label  asp-for="CookingMethodId">Cooking Methods</label>
+                <select class="form-control">
+                    <option selected>Choose a cooking method</option>
+                    @foreach (var method in Model.Methods)
                     {
-                        <option value="@methods.Id">@methods.Name</option>
+                        <option value="@method.Id">@method.Name</option>
                     }
                 </select>
-                <span asp-validation-for="CategoryId" class="small text-danger"></span>
             </div>
+
             <input class="btn btn-primary mt-3" type="submit" value="Save" />
         </form>
     </div>
