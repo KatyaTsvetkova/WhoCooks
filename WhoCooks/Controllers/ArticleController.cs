@@ -18,17 +18,16 @@
         private readonly IPreviewArticle preview;
         private readonly IHttpContextAccessor httpContext;
         private WhoCooksDbContext data;
-        private UserManager<Chef> user;
+      
 
         public ArticleController(IArticleData articleData,
-            UserManager<Chef> user,
             IHttpContextAccessor context,
             WhoCooksDbContext data,
             IPreviewArticle preview
         )
         {
             this.articleData = articleData;
-            this.user = user;
+           
             this.httpContext = context;
             this.data = data;
             this.preview = preview;
@@ -52,15 +51,15 @@
 
             return View(model);
         }
-        [Authorize(Roles = "Admin")]
+      
         [HttpPost]
         public IActionResult DeleteArticle(int id)
         {
             articleData.DeleteArticle(id);
-            return RedirectToAction(nameof(Index), "Home");
+            return RedirectToAction(nameof(Index), "Article");
         }
 
-        [Authorize(Roles = "Admin")]
+     
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -69,7 +68,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "Admin")]
+    
         [HttpPost]
         public IActionResult Edit(HowToArticle model)
         {
@@ -84,7 +83,7 @@
 
                 updatedArticle = articleData.EditArticle(updatedArticle);
 
-                return RedirectToAction("Details", "Home", new { id = updatedArticle.Id });
+                return RedirectToAction("Details", "Article", new { id = updatedArticle.Id });
             }
             else
             {
@@ -92,14 +91,14 @@
             }
         }
 
-        [Authorize(Roles = "Admin")]
+       
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+       
         [HttpPost]
         public IActionResult Create(HowToArticle model)
         {
@@ -113,14 +112,14 @@
 
                 articleData.PostArticle(newArticle);
 
-                return RedirectToAction("Details", "Home", new { id = newArticle.Id });
+                return RedirectToAction("Details", "Article", new { id = newArticle.Id });
             }
             else
             {
                 return View();
             }
         }
-        [AllowAnonymous]
+        
         [HttpGet]
         public IActionResult Index()
         {
