@@ -1,0 +1,57 @@
+﻿@model ArticleIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    var counter = 0;
+    var categoryColor = string.Empty;
+}
+@using Microsoft.AspNetCore.Identity
+@using WhoCooks.Data
+@inject SignInManager<Chef> SignInManager
+@inject UserManager<Chef> UserManager
+<div class="text-center">
+    @if (this.User.IsInRole("Admin"))
+    {
+        <div class="float-left">
+            <a asp-controller="Article" asp-action="Index"><p style="color: gold">Admin</p></a>
+        </div>
+        <div>
+            <a class="btn btn-success" asp-controller="Article" asp-action="Create">Create</a>
+        </div>
+    }  
+</div>
+
+    
+    <table class="table">
+
+        @foreach (var article in Model.Articles)
+        {
+
+            <tr>
+                <td>
+                    <p style="color: lightgray">@article.Date.ToString("dddd, dd MMMM yyyy")</p>
+                </td>
+                <td>
+                    <h1><a style="color: darkred !important" href="@article.Id">@article.Title</a></h1>
+
+                    <div class="text-left">
+                        <p class="text-left">@Html.Raw(Model.Preview[counter++]) <a href="@article.Id">Read More.....</a></p>
+                    </div>
+
+                </td>
+                
+                <td><span class="text-danger">Author: </span>@article.Author</td>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id" class="btn btn-outline-warning">Edit</a>
+                    </td>
+                    <td>
+                        <form asp-action="DeleteArticle" asp-controller="Article" asp-route-id="@article.Id" method="post">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+  

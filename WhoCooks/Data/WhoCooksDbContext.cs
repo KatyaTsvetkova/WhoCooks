@@ -2,9 +2,8 @@
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
    
-
-
     public class WhoCooksDbContext : IdentityDbContext
     {
         public WhoCooksDbContext(DbContextOptions<WhoCooksDbContext> options)
@@ -14,6 +13,8 @@
 
         public DbSet<Recipe> Recipes { get; init; }
         public  DbSet<Category> Categories { get; init; }
+        public DbSet<HowToArticle> Articles { get; init; }
+        public  DbSet<Chef> Chefs { get; init; }
        
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,7 +24,14 @@
                 .WithMany(c => c.RecipeCategories)
                 .HasForeignKey(c => c.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
-  
+
+            builder
+                .Entity<Chef>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Chef>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }

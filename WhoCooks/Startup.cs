@@ -1,3 +1,5 @@
+using WhoCooks.Services.HowToArticles;
+
 namespace WhoCooks
 {
     using Microsoft.AspNetCore.Builder;
@@ -49,7 +51,9 @@ namespace WhoCooks
             services.AddControllersWithViews();
             services.AddTransient<IStatisticsService, StatisticsService>();
             services.AddTransient<IRecipeService, RecipeService>();
-        }
+            services.AddTransient<IArticleData, ArticleData>();
+            services.AddTransient<IPreviewArticle, PreviewArticle>();
+         }
 
          public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

@@ -1,4 +1,3 @@
-
 namespace WhoCooks.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,8 @@ namespace WhoCooks.Controllers
     using WhoCooks.Models;
     using WhoCooks.Models.Recipes;
     using WhoCooks.Services.Recipes;
+    using Microsoft.AspNetCore.Authorization;
+    using WhoCooks.Infrastructure;
 
     public class RecipesController :Controller
     {
@@ -38,7 +39,7 @@ namespace WhoCooks.Controllers
             return View(query);
         }
 
-    
+        [Authorize]
         public IActionResult Add()
         {
             return View(new AddRecipeFormModel()
@@ -95,7 +96,7 @@ namespace WhoCooks.Controllers
                 })
                 .ToList();
 
-       
+        
     }
         
 }
