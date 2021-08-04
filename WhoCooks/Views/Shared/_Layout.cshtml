@@ -8,41 +8,29 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Who Cooks?</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Recipes" asp-action="Add">Add</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Recipes" asp-action="All">All</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Details">Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Edit">Edit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Create">Create</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Article" asp-action="Index">Index</a>
-                        </li>
-                         
-                    </ul>
+    <div class="container">
+        <header class="blog-header py-2">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 text-left">
+                    <a class="blog-header-logo text-dark"asp-controller="Home" asp-action="Index">Who cooks?</a>
+                </div>
+                <div class="col-md-2 text-right flex justify-content-between align-items-end">
                     <partial name="_LoginPartial" />
                 </div>
             </div>
-        </nav>
-    </header>
+        </header>
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav   justify-content-between">
+                <a class="p-2 link-secondary" asp-controller="Recipes" asp-action="All">All Recipes</a>
+                <a class="p-2 link-secondary" asp-controller="Recipes" asp-action="Add">Add a Recipe</a>
+                <a class="p-2 link-secondary" asp-controller="Article" asp-action="Index">How-To Articles</a>
+
+            </nav>
+        </div>
+
+    </div>
+    
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
