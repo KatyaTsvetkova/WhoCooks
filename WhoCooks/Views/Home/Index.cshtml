@@ -1,9 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+@model  List<LastestRecipeServiceModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@{ ViewData["Title"] = "Home Page"; }
+
+
+<div class="container-fluid" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); ">
+    <div class="p-4 p-md-5 mb-4 text-black-50 rounded bg">
+        <div class="col-md-6 px-0">
+            <h1 class="display-3 fst-italic">Welcome to Who Cooks?</h1>
+            <p class="lead my-3">Here you will find great recepies ideas and simple cooking tips that'll change every home cook's life </p>
+        </div>
+    </div>
 </div>
+<div class="row mb-2">
+    <!--<div class="col-md-6">
+           @for (int i = 0; i < 3; i++)
+            {
+               // var recipe = Model[i];
+                <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
+                    <img class="d-block w-100" src="//ImageUrl" alt="Title">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><a class="btn btn-primary" asp-controller="Recipes" asp-action="Details" asp-route-id="Id">Category.Name</a></h5>
+                    </div>
+                </div>
 
+              }
+        </div> -->
+    <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-success">Design</strong>
+                <h3 class="mb-0">Post title</h3>
+                <div class="mb-1 text-muted">Nov 11</div>
+                <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="stretched-link">Continue reading</a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            </div>
+        </div>
+    </div>
+</div>
