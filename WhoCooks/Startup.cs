@@ -1,5 +1,3 @@
-using WhoCooks.Services.HowToArticles;
-
 namespace WhoCooks
 {
     using Microsoft.AspNetCore.Builder;
@@ -11,10 +9,7 @@ namespace WhoCooks
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using WhoCooks.Services.HowToArticles;
     using WhoCooks.Data;
     using WhoCooks.Services.Recipes;
     using WhoCooks.Services.Statistics;
@@ -39,13 +34,14 @@ namespace WhoCooks
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<User>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<WhoCooksDbContext>();
            
             services.AddControllersWithViews();

@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
    
-    public class WhoCooksDbContext : IdentityDbContext
+    public class WhoCooksDbContext : IdentityDbContext<User>
     {
         public WhoCooksDbContext(DbContextOptions<WhoCooksDbContext> options)
             : base(options)
@@ -27,7 +27,7 @@
 
             builder
                 .Entity<Chef>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Chef>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
