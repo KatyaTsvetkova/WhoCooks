@@ -1,36 +1,31 @@
 ﻿namespace WhoCooks.Models.Recipes
 {
     using System;
-    using WhoCooks.Data;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
+    using WhoCooks.Services.Recipes;
+    
 
     using static Data.DataConstants;
-
-    public class AddRecipeFormModel
+    public class RecipesFormModel
     {
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; init; }
-
-        [Required]
-        [MinLength(AuthorMinLength)]
-        public string Author { get; init; }
-   
-        [Required]
+        
+        [Required] 
         public int Difficulty { get; init; }
 
         [Required]
         public int Servings { get; init; }
 
-        [Required]
+        [Required] 
         public double CookTime { get; init; }
 
-        [Required]
+        [Required] 
         public string Ingredients { get; init; }
-
-        [Required]
-        public DateTime TimeStamp { get; set; }= DateTime.UtcNow.ToLocalTime();
+        
+        public DateTime TimeStamp { get; set; } = DateTime.UtcNow.ToLocalTime();
 
         [Required]
         [Url]
@@ -38,12 +33,18 @@
         public string ImageUrl { get; init; }
 
         [Required]
+        [StringLength(
+            int.MaxValue,
+            MinimumLength = DirectionsMinLength,
+            ErrorMessage = "The field Description must be a string with a minimum length of {2}.")]
         public string Directions { get; init; }
+
+        public int ChefId { get; init; }
         
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; }
+        public IEnumerable<RecipeCategoryServiceModel> Categories { get; set; }
     }
 }

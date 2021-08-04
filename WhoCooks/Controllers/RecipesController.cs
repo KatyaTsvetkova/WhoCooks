@@ -10,17 +10,18 @@ namespace WhoCooks.Controllers
     using Microsoft.AspNetCore.Authorization;
     using WhoCooks.Infrastructure;
 
-    public class RecipesController :Controller
+    public class RecipesController : Controller
     {
 
         private readonly WhoCooksDbContext data;
-        private readonly IRecipeService recipe; 
+        private readonly IRecipeService recipe;
 
         public RecipesController(WhoCooksDbContext data, IRecipeService recipe)
         {
-            this.recipe = recipe;    
+            this.recipe = recipe;
             this.data = data;
         }
+
         public IActionResult All([FromQuery] AllRecipesQueryModel query)
         {
             var queryResult = this.recipe.All(
@@ -38,65 +39,48 @@ namespace WhoCooks.Controllers
 
             return View(query);
         }
-
+         
         [Authorize]
         public IActionResult Add()
         {
-            return View(new AddRecipeFormModel()
+            return View(new RecipesFormModel()
             {
-                Categories = this.GetRecipesCategories(),
-                
+                Categories = this.recipe.AllCategories()
+
             });
         }
-        [HttpPost]
-        public IActionResult Add(AddRecipeFormModel recipe)
-        {
-            
 
-            if (!this.data.Categories.Any(c => c.Id == recipe.CategoryId))
+        [HttpPost]
+        [Authorize]
+        public IActionResult Add(RecipesFormModel recipe)
+        {
+
+            if (!this.recipe.CategoryExists(recipe.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(recipe.CategoryId), "Category does not exist.");
             }
 
+
             if (!ModelState.IsValid)
             {
-                recipe.Categories = this.GetRecipesCategories();
+                recipe.Categories = this.recipe.AllCategories();
 
                 return View(recipe);
             }
 
-            var recipeData = new Recipe
-            {
-                Title= recipe.Title,
-                Author= recipe.Author,
-                Difficulty=recipe.Difficulty,
-                Servings=recipe.Servings,
-                CookTime=recipe.CookTime,
-                Ingredients=recipe.Ingredients,
-                TimeStamp= recipe.TimeStamp,
-                ImageUrl=recipe.ImageUrl,
-                Directions=recipe.Directions,
-                CategoryId=recipe.CategoryId
-
-
-            };
-
-            this.data.Recipes.Add(recipeData);
-            this.data.SaveChanges();
+            this.recipe.Create(
+                recipe.Title,
+                recipe.Difficulty,
+                recipe.Directions,
+                recipe.ImageUrl,
+                recipe.Ingredients,
+                recipe.Servings,
+                recipe.CookTime,
+                recipe.CategoryId,
+                recipe.ChefId);
 
             return RedirectToAction(nameof(All));
-        }
-        private IEnumerable<CategoryViewModel> GetRecipesCategories()
-            => this.data
-                .Categories
-                .Select(c => new CategoryViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
-                .ToList();
 
-        
+        }
     }
-        
 }

@@ -1,6 +1,7 @@
-﻿namespace WhoCooks.Models.Recipes
+﻿
+namespace WhoCooks.Services.Recipes
 {
-    public class CategoryViewModel
+    public class RecipeCategoryServiceModel
     {
         public int Id { get; init; }
 

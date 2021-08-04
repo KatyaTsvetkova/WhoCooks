@@ -1,4 +1,6 @@
-﻿namespace WhoCooks.Services.Recipes
+﻿using System;
+
+namespace WhoCooks.Services.Recipes
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,7 +11,7 @@
     public class RecipeService : IRecipeService
     {
         private readonly WhoCooksDbContext data;
-
+      
         public RecipeService(WhoCooksDbContext data) 
             => this.data = data;
 
@@ -64,6 +66,55 @@
                 Recipes = recipe
             };
         }
+        public int Create(string title, 
+            int difficulty, 
+            string directions, 
+            string imageUrl, 
+            string ingredients,
+            int servings, 
+            double cookTime,
+            int categoryId, 
+            int chefId)
+        {
+            var recipeData = new Recipe
+            {
+                Title = title,
+                Difficulty = difficulty,
+                Ingredients= ingredients,
+                Directions = directions,
+                ImageUrl = imageUrl,
+                CookTime = cookTime,
+                Servings = servings,
+                TimeStamp = DateTime.UtcNow,
+                CategoryId = categoryId,
+                ChefId = chefId
+            };
+
+            this.data.Recipes.Add(recipeData);
+            this.data.SaveChanges();
+
+            return recipeData.Id;
+        }
+
+        public IEnumerable<RecipeServiceModel> ByUser(string userId)
+            => GetRecipe(this.data
+                .Recipes
+                .Where(c => c.Chef.UserId == userId));
+
+        public IEnumerable<RecipeCategoryServiceModel> AllCategories()
+            => this.data
+                .Categories
+                .Select(c => new RecipeCategoryServiceModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToList();
+
+        public bool CategoryExists(int categoryId)
+            => this.data
+                .Categories
+                .Any(c => c.Id == categoryId);
 
         public IEnumerable<string> AllRecipes()
             => this.data
@@ -71,6 +122,25 @@
                 .Select(c => c.Title)
                 .Distinct()
                 .OrderBy(br => br)
+                .ToList();
+
+        private static IEnumerable<RecipeServiceModel> GetRecipe(IQueryable<Recipe> recipeQuery)
+            => recipeQuery
+                .Select(r => new RecipeServiceModel
+                {
+                   Id=r.Id,
+                   Title = r.Title,
+                   Difficulty = r.Difficulty,
+                   Directions = r.Directions,
+                   ImageUrl = r.ImageUrl,
+                   Ingredients = r.Ingredients,
+                   Servings = r.Servings,
+                   CookTime = r.CookTime,
+                   CategoryId = r.CategoryId,
+                   ChefId = r.ChefId,
+                   TimeStamp = DateTime.UtcNow
+
+                })
                 .ToList();
     }
 }

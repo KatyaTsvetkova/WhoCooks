@@ -14,5 +14,21 @@
             int carsPerPage);
 
         IEnumerable<string> AllRecipes();
+
+        int Create(string title,
+            int difficulty,
+            string directions,
+            string imageUrl,
+            string ingredients,
+            int servings,
+            double cookTime,
+            int categoryId,
+            int chefId);
+        IEnumerable<RecipeServiceModel> ByUser(string userId);
+          
+        IEnumerable<RecipeCategoryServiceModel> AllCategories();
+
+        bool CategoryExists(int categoryId);
     }
 }
+

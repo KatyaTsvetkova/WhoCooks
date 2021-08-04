@@ -7,8 +7,6 @@
         public int Id { get; init; }
         
         public string Title { get; init; }
-
-        public string Author { get; init; }
         
         public int Difficulty { get; init; }
 
@@ -18,7 +16,7 @@
         
         public string Ingredients { get; init; }
 
-        public DateTime TimeStamp { get; set; } = DateTime.UtcNow.ToLocalTime();
+        public DateTime TimeStamp { get; set; } 
 
         public string ImageUrl { get; init; }
 
@@ -30,5 +28,7 @@
         public int CategoryId { get; init; }
 
         public string Category { get; init; }
+
+        public  int ChefId { get; init; }
     }
 }

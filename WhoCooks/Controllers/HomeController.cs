@@ -24,7 +24,7 @@ namespace WhoCooks.Controllers
         {
             const string latestRecipesCacheKey = "LatestCarsCacheKey";
 
-            var latestRecipe = this.cache.Get<List<LastestRecipeServiceModel>>(latestRecipesCacheKey);
+            var latestRecipe = this.cache.Get<List<LatestRecipeServiceModel>>(latestRecipesCacheKey);
 
             if (latestRecipe == null)
             {

@@ -1,4 +1,4 @@
- @model AllRecipesQueryModel
+@model AllRecipesQueryModel
 
 @{
     ViewBag.Title = "All Recipes";
@@ -75,12 +75,12 @@
     <h2 class="text-center">No recipes found by the given criteria!</h2>
 }
 
-<div class="container-fluid" >
+<div class="container-fluid">
     <div class="row">
-        @foreach (var  recipe in Model.Recipes)
-        {  
+        @foreach (var recipe in Model.Recipes)
+        {
             <div class="card  col-md-3 offset-1 d-block" style="width: 18rem;">
-                <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap"style="width: 18rem;">
+                <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap" style="width: 15rem;">
                 <div class="card-body">
                     <h5 class="card-title text-center">@recipe.Title</h5>
                 </div>
@@ -90,11 +90,11 @@
                     <li class="list-group-item"> Difficulty level @recipe.Difficulty</li>
                 </ul>
                 <div class="card-body">
-                    <a  asp-controller="Recipes" asp-action="Details" asp-rout-id="@recipe.Id"  class="card-link">Full Recipe</a>
+                    <a asp-controller="Recipes" asp-action="Details" asp-rout-id="@recipe.Id" class="card-link">Full Recipe</a>
                 </div>
             </div>
-         
-          
+
+
         }
-        </div>
+    </div>
 </div>

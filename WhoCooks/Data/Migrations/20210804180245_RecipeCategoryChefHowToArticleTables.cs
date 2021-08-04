@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WhoCooks.Data.Migrations
 {
-    public partial class RecipeCategoryChefAndHowToArticleTables : Migration
+    public partial class RecipeCategoryChefHowToArticleTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,7 +62,6 @@ namespace WhoCooks.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Difficulty = table.Column<int>(type: "int", nullable: false),
                     Servings = table.Column<int>(type: "int", nullable: false),
                     CookTime = table.Column<double>(type: "float", nullable: false),
@@ -71,14 +70,15 @@ namespace WhoCooks.Data.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Directions = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ChefId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ChefId = table.Column<int>(type: "int", nullable: false),
+                    ChefId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recipes_AspNetUsers_ChefId",
-                        column: x => x.ChefId,
+                        name: "FK_Recipes_AspNetUsers_ChefId1",
+                        column: x => x.ChefId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -103,9 +103,9 @@ namespace WhoCooks.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipes_ChefId",
+                name: "IX_Recipes_ChefId1",
                 table: "Recipes",
-                column: "ChefId");
+                column: "ChefId1");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_AspNetUsers_UserId",

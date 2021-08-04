@@ -12,8 +12,6 @@ namespace WhoCooks.Data
         public int Id { get; init; }
         [Required]
         public  string Title { get; init; }
-
-        public string Author { get; init; }
         
         [Required]
         public int Difficulty { get; init; }
@@ -35,5 +33,7 @@ namespace WhoCooks.Data
         public int CategoryId { get; init; }
 
         public Category Category { get; init; }
+        public int ChefId { get; init; }
+        public Chef Chef { get; init; }
     }
 }

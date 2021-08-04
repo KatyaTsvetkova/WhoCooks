@@ -276,13 +276,13 @@ namespace WhoCooks.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ChefId")
+                    b.Property<int>("ChefId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChefId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("CookTime")
@@ -317,7 +317,7 @@ namespace WhoCooks.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ChefId");
+                    b.HasIndex("ChefId1");
 
                     b.ToTable("Recipes");
                 });
@@ -400,11 +400,13 @@ namespace WhoCooks.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WhoCooks.Data.Chef", null)
+                    b.HasOne("WhoCooks.Data.Chef", "Chef")
                         .WithMany("Recipes")
-                        .HasForeignKey("ChefId");
+                        .HasForeignKey("ChefId1");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Chef");
                 });
 
             modelBuilder.Entity("WhoCooks.Data.Chef", b =>
