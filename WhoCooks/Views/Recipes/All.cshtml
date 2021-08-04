@@ -1,98 +1,50 @@
-﻿ @model AllRecipesQueryModel
-
-@{
-    ViewBag.Title = "All Recipes";
-}
-
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-4">
-            <div class="form-group">
-                <label asp-for="Title"></label>
-                <select asp-for="Title" class="form-control">
-                    <option value="">All</option>
-
-                    @foreach (var title in Model.Titles)
-                    {
-                        <option value="@title">@title</option>
-                    }
-                </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Who Cooks?</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="blog-header py-2">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 text-left">
+                    <a class="blog-header-logo text-dark"asp-controller="Home" asp-action="Index">Who cooks?</a>
+                </div>
+                <div class="col-md-2 text-right flex justify-content-between align-items-end">
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
+        </header>
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav   justify-content-between">
+                <a class="p-2 link-secondary" asp-controller="Recipes" asp-action="All">All Recipes</a>
+                <a class="p-2 link-secondary" asp-controller="Recipes" asp-action="Add">Add a Recipe</a>
+                <a class="p-2 link-secondary" asp-controller="Article" asp-action="Index">How-To Articles</a>
+
+            </nav>
         </div>
 
-        <div class="form-group col-md-4">
-            <label asp-for="SearchTerm"></label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Eggs,Backon,Chicken...">
-        </div>
-
-        <div class="form-group col-md-4">
-            <div class="form-group">
-                <label asp-for="Sorting"></label>
-                <select asp-for="Sorting" class="form-control">
-                    <option value="0" selected>Category</option>
-                    <option value="1">CreatedOn</option>
-                    <option value="2">Title</option>
-                    <option value="3">Difficulty</option>
-                </select>
-            </div>
-        </div>
     </div>
-</form>
+    
 
-@{
-    var previousPage = Model.CurrentPage - 1;
-    if (previousPage < 1)
-    {
-        previousPage = 1;
-    }
-
-    var maxPage = Math.Ceiling((double)Model.TotalRecipes / AllRecipesQueryModel.RecipesPerPage);
-}
-
-<div class="row mb-5">
-    <div class="col-md-6">
-        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="Recipes"
-           asp-action="All"
-           asp-route-currentPage="@previousPage"
-           asp-route-brand="@Model.Title"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-    <div class="col-md-6">
-        <a class="btn btn-primary float-right @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)"
-           asp-controller="Recipes"
-           asp-action="All"
-           asp-route-currentPage="@(Model.CurrentPage + 1)"
-           asp-route-brand="@Model.Title"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)">>></a>
-    </div>
-</div>
 
-@if (!Model.Recipes.Any())
-{
-    <h2 class="text-center">No recipes found by the given criteria!</h2>
-}
-
-<div class="row">
-    @foreach (var  recipe in Model.Recipes)
-    {  
-        <div class="card  col-md-3" style="width: 18rem;">
-            <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@recipe.Title</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">@recipe.Category</li>
-                <li class="list-group-item">@recipe.CookTime Min</li>
-                <li class="list-group-item"> Difficulty level @recipe.Difficulty</li>
-            </ul>
-            <div class="card-body">
-                <a  asp-controller="Recipes" asp-action="Details" asp-rout-id="@recipe.Id"  class="card-link">Full Recipe</a>
-            </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.UtcNow.Year - WhoCooks
         </div>
-         
-          
-    }
-</div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
