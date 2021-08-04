@@ -12,9 +12,10 @@
         <header class="blog-header py-2">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 text-left">
-                    <a class="blog-header-logo text-dark"asp-controller="Home" asp-action="Index">Who cooks?</a>
+                    <a class="pull-left"asp-controller="Home" asp-action="Index"><img src="~/logo.png" height="150" width="150" ></a>
+                    <!--<a class="blog-header-logo text-dark" asp-controller="Home" asp-action="Index">Who cooks?</a>-->
                 </div>
-                <div class="col-md-2 text-right flex justify-content-between align-items-end">
+                <div class="col-md-2 text-right flex justify-content align-items-end">
                     <partial name="_LoginPartial" />
                 </div>
             </div>
