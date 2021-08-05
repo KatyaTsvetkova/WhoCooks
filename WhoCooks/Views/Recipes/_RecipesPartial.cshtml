@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RecipeServiceModel>
+<div class="row">
+    @foreach (var recipe in Model)
+    {
+        <div class="card  col-md-3 offset-1 d-block" style="width: 18rem;">
+            <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title text-center">@recipe.Title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@recipe.Category</li>
+                <li class="list-group-item">@recipe.CookTime Min</li>
+                <li class="list-group-item"> Difficulty level @recipe.Difficulty</li>
+            </ul>
+            <div class="card-body">
+                <a asp-controller="Recipes" asp-action="Details" asp-rout-id="@recipe.Id" class="card-link">Full Recipe</a>
+            </div>
+        </div>
+
+
+    }
+</div>

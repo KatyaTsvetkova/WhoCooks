@@ -1,4 +1,7 @@
-﻿namespace WhoCooks.Services.Recipes
+﻿using System.Collections.Specialized;
+using Microsoft.VisualBasic;
+
+namespace WhoCooks.Services.Recipes
 {
     using System.Collections.Generic;
     using WhoCooks.Services.Recipes;
@@ -24,6 +27,18 @@
             double cookTime,
             int categoryId,
             int chefId);
+        RecipeServiceModel Details(int recipeId);
+        bool Edit(
+            int recipeId,
+            string title,
+            int difficulty,
+            int servings,
+            double cookTime,
+            string imageUrl,
+            string ingredients,
+            int categoryId,
+            string directions
+            );
         IEnumerable<RecipeServiceModel> ByUser(string userId);
           
         IEnumerable<RecipeCategoryServiceModel> AllCategories();

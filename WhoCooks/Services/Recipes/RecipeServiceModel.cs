@@ -1,4 +1,6 @@
-﻿namespace WhoCooks.Services.Recipes
+﻿using WhoCooks.Data;
+
+namespace WhoCooks.Services.Recipes
 {
     using System;
     using System.ComponentModel.DataAnnotations;

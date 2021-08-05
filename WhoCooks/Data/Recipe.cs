@@ -11,26 +11,26 @@ namespace WhoCooks.Data
 
         public int Id { get; init; }
         [Required]
-        public  string Title { get; init; }
+        public  string Title { get; set; }
         
         [Required]
-        public int Difficulty { get; init; }
+        public int Difficulty { get; set; }
         [Required]
-        public  int Servings { get; init; }
+        public  int Servings { get; set; }
         [Required]
-        public double CookTime { get; init; }
+        public double CookTime { get; set; }
 
         [Required]
-        public string Ingredients { get; init; } 
+        public string Ingredients { get; set; } 
 
         [Required]
         public DateTime TimeStamp { get; set; }
         [Required]
-        public string ImageUrl { get; init; }
+        public string ImageUrl { get; set; }
         [Required]
-        public string Directions { get; init; }
+        public string Directions { get; set; }
         [Required]
-        public int CategoryId { get; init; }
+        public int CategoryId { get; set; }
 
         public Category Category { get; init; }
         public int ChefId { get; init; }

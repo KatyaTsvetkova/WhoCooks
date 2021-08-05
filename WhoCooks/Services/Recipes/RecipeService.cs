@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic;
 
 namespace WhoCooks.Services.Recipes
 {
@@ -6,6 +7,7 @@ namespace WhoCooks.Services.Recipes
     using System.Linq;
     using WhoCooks.Data;
     using WhoCooks.Models;
+    using WhoCooks.Services.Recipes;
 
 
     public class RecipeService : IRecipeService
@@ -95,7 +97,58 @@ namespace WhoCooks.Services.Recipes
 
             return recipeData.Id;
         }
+        public bool Edit(
+            int recipeId,
+            string title,
+            int difficulty,
+            int servings,
+            double cookTime,
+            string imageUrl,
+            string ingredients,
+            int categoryId,
+            string directions)
+        {
+            var recipeData = this.data.Recipes.Find(recipeId);
 
+            if (recipeData == null)
+            {
+                return false;
+            }
+
+            recipeData.Title = title;
+            recipeData.Difficulty = difficulty;
+            recipeData.Servings = servings;
+            recipeData.CookTime = cookTime;
+            recipeData.Ingredients = ingredients;
+            recipeData.TimeStamp = DateTime.UtcNow;
+            recipeData.ImageUrl = imageUrl;
+            recipeData.Directions = directions;
+            recipeData.CategoryId = categoryId;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+        public RecipeServiceModel Details(int id)
+            => this.data
+                .Recipes
+                .Where(r => r.Id == id)
+                .Select(r => new RecipeServiceModel
+                {
+                    Id = r.Id,
+                    Title = r.Title,
+                    Difficulty = r.Difficulty,
+                    Servings = r.Servings,
+                    CookTime = r.CookTime,
+                    Ingredients = r.Ingredients,
+                    TimeStamp = DateTime.UtcNow,
+                    ImageUrl = r.ImageUrl,
+                    Directions = r.Directions,
+                    CategoryId = r.CategoryId,
+                    Category = r.Category.Name
+                     
+                })
+                .FirstOrDefault();
         public IEnumerable<RecipeServiceModel> ByUser(string userId)
             => GetRecipe(this.data
                 .Recipes
