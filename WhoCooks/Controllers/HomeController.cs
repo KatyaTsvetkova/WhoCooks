@@ -5,40 +5,51 @@ namespace WhoCooks.Controllers
     using System;
     using System.Collections.Generic; 
     using System.Linq; 
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using WhoCooks.Data;
+    using WhoCooks.Models.Home;
+    using WhoCooks.Services.Statistics;
     using WhoCooks.Services.Recipes;
 
     public class HomeController : Controller
     {
         private readonly IRecipeService recipes;
         private readonly IMemoryCache cache;
-
+        private readonly IConfigurationProvider mapper;
+        private readonly WhoCooksDbContext data;
+        private readonly IStatisticsService statistics;
         public HomeController(
             IRecipeService recipes,
-            IMemoryCache cache)
+            IMemoryCache cache,
+            WhoCooksDbContext data, 
+            IStatisticsService statistics,
+            IMapper mapper)
         {
             this.recipes = recipes;
             this.cache = cache;
+            this.mapper = mapper.ConfigurationProvider;
+            this.data = data;
+            this.statistics = statistics;
         }
 
         public IActionResult Index()
         {
-            const string latestRecipesCacheKey = "LatestCarsCacheKey";
+            var recipe = this.data
+                .Recipes
+                .OrderByDescending(c => c.Id)
+                .ProjectTo<RecipeIndexViewModel>(this.mapper)
+                .Take(3)
+                .ToList();
 
-            var latestRecipe = this.cache.Get<List<LatestRecipeServiceModel>>(latestRecipesCacheKey);
+            var totalStatistics = this.statistics.Total();
 
-            if (latestRecipe == null)
+            return View(new IndexViewModel
             {
-                //latestRecipe = this.recipes
-                   //.Latest()
-                   //.ToList();
-
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
-
-                this.cache.Set(latestRecipesCacheKey, latestRecipe, cacheOptions);
-            }
-
-            return View(latestRecipe);
+                TotalRecipes = totalStatistics.TotalRecipes,
+                TotalUsers = totalStatistics.TotalUsers,
+                Recipes = recipe
+            });
         }
 
         public IActionResult Error() => View();

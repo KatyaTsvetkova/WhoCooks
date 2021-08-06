@@ -1,21 +1,24 @@
-﻿using System;
-using Microsoft.VisualBasic;
-
-namespace WhoCooks.Services.Recipes
+﻿namespace WhoCooks.Services.Recipes
 {
     using System.Collections.Generic;
     using System.Linq;
     using WhoCooks.Data;
     using WhoCooks.Models;
-    using WhoCooks.Services.Recipes;
+    using System;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions; 
+ 
 
 
     public class RecipeService : IRecipeService
     {
         private readonly WhoCooksDbContext data;
-      
-        public RecipeService(WhoCooksDbContext data) 
-            => this.data = data;
+        private readonly IConfigurationProvider mapper;
+        public RecipeService(WhoCooksDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
+        }
 
         public RecipesQueryServiceModel All(
             string title,
@@ -133,21 +136,7 @@ namespace WhoCooks.Services.Recipes
             => this.data
                 .Recipes
                 .Where(r => r.Id == id)
-                .Select(r => new RecipeServiceModel
-                {
-                    Id = r.Id,
-                    Title = r.Title,
-                    Difficulty = r.Difficulty,
-                    Servings = r.Servings,
-                    CookTime = r.CookTime,
-                    Ingredients = r.Ingredients,
-                    TimeStamp = DateTime.UtcNow,
-                    ImageUrl = r.ImageUrl,
-                    Directions = r.Directions,
-                    CategoryId = r.CategoryId,
-                    Category = r.Category.Name
-                     
-                })
+                .ProjectTo<RecipeDetailsServiceModel>(this.mapper)
                 .FirstOrDefault();
         public IEnumerable<RecipeServiceModel> ByUser(string userId)
             => GetRecipe(this.data

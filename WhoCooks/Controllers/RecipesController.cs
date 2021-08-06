@@ -1,3 +1,6 @@
+using System.Threading;
+using AutoMapper;
+
 namespace WhoCooks.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
@@ -15,10 +18,11 @@ namespace WhoCooks.Controllers
 
         private readonly WhoCooksDbContext data;
         private readonly IRecipeService recipe;
-
-        public RecipesController(WhoCooksDbContext data, IRecipeService recipe)
+        private readonly IMapper mapper;
+        public RecipesController(WhoCooksDbContext data, IRecipeService recipe, IMapper mapper)
         {
             this.recipe = recipe;
+            this.mapper = mapper;
             this.data = data;
         }
 
@@ -88,18 +92,11 @@ namespace WhoCooks.Controllers
         {
             var recipeDetails = this.recipe.Details(id);
 
-            return View(new RecipesFormModel()
-            {
-                Title = recipeDetails.Title,
-                Difficulty = recipeDetails.Difficulty,
-                Servings = recipeDetails.Servings,
-                CookTime = recipeDetails.CookTime,
-                Ingredients = recipeDetails.Ingredients,
-                Directions = recipeDetails.Directions,
-                ImageUrl = recipeDetails.ImageUrl,
-                CategoryId = recipeDetails.CategoryId,
-                Categories = this.recipe.AllCategories()
-            });
+            var recipeForm = this.mapper.Map<RecipesFormModel>(recipeDetails);
+
+            recipeForm.Categories = this.recipe.AllCategories();
+
+            return View(recipeForm);
         }
 
         [HttpPost]

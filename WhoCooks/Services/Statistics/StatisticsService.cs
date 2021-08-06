@@ -13,13 +13,15 @@
         public StatisticsServiceModel Total()
         {
             var totalRecipes = this.data.Recipes.Count();
-            var totalChefs = this.data.Users.Count();
+            var totalUsers = this.data.Users.Count();
+            var totalArticles = this.data.Articles.Count();
 
             return new StatisticsServiceModel
             {
                 TotalRecipes = totalRecipes,
-                TotalChefs = totalChefs
-                 
+                TotalUsers = totalUsers,
+                TotalArticles= totalArticles
+
             };
         }
     }
